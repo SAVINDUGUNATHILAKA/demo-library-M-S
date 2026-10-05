@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox spacing="20.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.controller.IssueBookController">
+   <children>
+      <!-- Left: Issue Book Form Card -->
+      <VBox prefWidth="480.0" spacing="16.0" styleClass="card" HBox.hgrow="NEVER">
+         <children>
+            <VBox spacing="4.0">
+               <children>
+                  <Label styleClass="heading-3" text="New Book Loan Form" />
+                  <Label styleClass="text-muted" text="Issue an available catalog copy to an enrolled member." />
+               </children>
+            </VBox>
+
+            <!-- Select Member -->
+            <VBox spacing="6.0">
+               <children>
+                  <Label styleClass="form-label" text="Select Member *" />
+                  <ComboBox fx:id="cmbMember" maxWidth="Infinity" promptText="Choose a registered patron" />
+               </children>
+            </VBox>
+
+            <!-- Select Book -->
+            <VBox spacing="6.0">
+               <children>
+                  <Label styleClass="form-label" text="Select Book Title *" />
+                  <ComboBox fx:id="cmbBook" maxWidth="Infinity" promptText="Choose a book from inventory" />
+               </children>
+            </VBox>
+
+            <!-- Dates Row -->
+            <HBox spacing="14.0">
+               <children>
+                  <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="form-label" text="Issue Date *" />
+                        <DatePicker fx:id="dpIssueDate" maxWidth="Infinity" promptText="Select Issue Date" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="form-label" text="Return Due Date *" />
+                        <DatePicker fx:id="dpDueDate" maxWidth="Infinity" promptText="Select Due Date" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <!-- Notes / Remarks -->
+            <VBox spacing="6.0">
+               <children>
+                  <Label styleClass="form-label" text="Remarks / Notes (Optional)" />
+                  <TextField fx:id="txtNotes" promptText="e.g. First edition reference copy, academic research" />
+               </children>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Action Buttons -->
+            <HBox spacing="12.0">
+               <children>
+                  <Button fx:id="btnIssueBook" defaultButton="true" maxWidth="Infinity" onAction="#handleIssueBook" prefHeight="42.0" styleClass="btn-primary" text="📖   Issue Book to Member" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnClear" cancelButton="true" onAction="#handleClear" prefHeight="42.0" prefWidth="90.0" styleClass="btn-secondary" text="Clear" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+
+      <!-- Right: Summary Inspector & Live Verification -->
+      <VBox spacing="16.0" HBox.hgrow="ALWAYS">
+         <children>
+            <!-- Member Verification Card -->
+            <VBox spacing="10.0" styleClass="card">
+               <children>
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #2563eb;" text="MEMBER VERIFICATION" />
+                  <Separator />
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Full Name &amp; ID:" />
+                        <Label fx:id="lblMemberName" style="-fx-font-weight: 600;" text="-" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Contact Phone:" />
+                        <Label fx:id="lblMemberPhone" text="-" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Email Address:" />
+                        <Label fx:id="lblMemberEmail" text="-" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <!-- Book Verification Card -->
+            <VBox spacing="10.0" styleClass="card">
+               <children>
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #2563eb;" text="BOOK INVENTORY STATUS" />
+                  <Separator />
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Title:" />
+                        <Label fx:id="lblBookTitle" style="-fx-font-weight: 600;" text="-" wrapText="true" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Author:" />
+                        <Label fx:id="lblBookAuthor" text="-" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Category:" />
+                        <Label fx:id="lblBookCategory" text="-" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="120.0" styleClass="text-muted" text="Stock Availability:" />
+                        <Label fx:id="lblBookAvailable" text="-" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+
+            <!-- Policy & Rules Card -->
+            <VBox spacing="8.0" styleClass="card" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #475569;" text="LENDING POLICY GUIDELINES" />
+                  <Separator />
+                  <Label styleClass="text-muted" text="• Standard book lending period is 14 calendar days." />
+                  <Label styleClass="text-muted" text="• Overdue fine rate is \$0.50 per day past the agreed due date." />
+                  <Label styleClass="text-muted" text="• Members with more than 3 overdue books cannot borrow additional copies." />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

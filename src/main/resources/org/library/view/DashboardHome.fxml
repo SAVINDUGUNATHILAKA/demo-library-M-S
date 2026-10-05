@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.library.controller.DashboardHomeController">
+   <children>
+      <!-- Metric KPI Stat Cards Row -->
+      <HBox spacing="16.0">
+         <children>
+            <!-- Stat Card 1: Total Books -->
+            <VBox spacing="12.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label styleClass="stat-title" text="Total Books" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <StackPane prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #dbeafe; -fx-background-radius: 8px;">
+                           <children>
+                              <Label style="-fx-font-size: 16px;" text="📚" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <Label fx:id="lblTotalBooks" styleClass="stat-number" text="0" />
+                  <Label styleClass="text-muted" text="Copies available in library catalog" />
+               </children>
+            </VBox>
+
+            <!-- Stat Card 2: Total Members -->
+            <VBox spacing="12.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label styleClass="stat-title" text="Registered Members" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <StackPane prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #dcfce7; -fx-background-radius: 8px;">
+                           <children>
+                              <Label style="-fx-font-size: 16px;" text="👥" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <Label fx:id="lblTotalMembers" styleClass="stat-number" text="0" />
+                  <Label styleClass="text-muted" text="Active registered library patrons" />
+               </children>
+            </VBox>
+
+            <!-- Stat Card 3: Currently Borrowed -->
+            <VBox spacing="12.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label styleClass="stat-title" text="Borrowed Books" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <StackPane prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #fef3c7; -fx-background-radius: 8px;">
+                           <children>
+                              <Label style="-fx-font-size: 16px;" text="📖" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <Label fx:id="lblBorrowedBooks" styleClass="stat-number" text="0" />
+                  <Label styleClass="text-muted" text="Currently issued to patrons" />
+               </children>
+            </VBox>
+
+            <!-- Stat Card 4: Overdue Books -->
+            <VBox spacing="12.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label styleClass="stat-title" text="Overdue Books" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <StackPane prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #fee2e2; -fx-background-radius: 8px;">
+                           <children>
+                              <Label style="-fx-font-size: 16px;" text="⚠️" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+                  <Label fx:id="lblOverdueBooks" styleClass="stat-number" style="-fx-text-fill: #ef4444;" text="0" />
+                  <Label styleClass="text-muted" text="Exceeded agreed return deadline" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+
+      <!-- Quick Action Shortcuts Panel -->
+      <VBox spacing="12.0" styleClass="card">
+         <children>
+            <Label styleClass="heading-3" text="Quick Operations" />
+            <HBox spacing="12.0">
+               <children>
+                  <Button onAction="#onQuickIssueBook" prefHeight="38.0" styleClass="btn-primary" text="📖   Issue a Book" />
+                  <Button onAction="#onQuickReturnBook" prefHeight="38.0" styleClass="btn-secondary" text="🔄   Return Book" />
+                  <Button onAction="#onQuickAddMember" prefHeight="38.0" styleClass="btn-secondary" text="👤   Register Member" />
+                  <Button onAction="#onQuickAddBook" prefHeight="38.0" styleClass="btn-secondary" text="➕   Add New Book" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button onAction="#onRefresh" prefHeight="38.0" styleClass="btn-secondary" text="↻   Refresh Data" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <!-- Recent Circulation Activity Table -->
+      <VBox spacing="12.0" styleClass="card" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox spacing="2.0">
+                     <children>
+                        <Label styleClass="heading-3" text="Recent Circulation Activity" />
+                        <Label styleClass="text-muted" text="Latest book issue, return, and overdue transaction records" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <TableView fx:id="tblRecentActivity" prefHeight="260.0" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colRecordId" prefWidth="110.0" text="Record ID" />
+                  <TableColumn fx:id="colMemberName" prefWidth="180.0" text="Member Name" />
+                  <TableColumn fx:id="colBookTitle" prefWidth="280.0" text="Book Title" />
+                  <TableColumn fx:id="colIssueDate" prefWidth="120.0" text="Issue Date" />
+                  <TableColumn fx:id="colDueDate" prefWidth="120.0" text="Due Date" />
+                  <TableColumn fx:id="colStatus" prefWidth="120.0" text="Status" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</VBox>
